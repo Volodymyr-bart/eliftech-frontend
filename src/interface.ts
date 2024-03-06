@@ -5,6 +5,18 @@ export type Drug = {
   price: number;
   description: string;
   createdAt: string;
+  shop: string[];
+};
+
+export type DrugCart = {
+  _id: string;
+  title: string;
+  image: string;
+  price: number;
+  description: string;
+  createdAt: string;
+  shop: string[];
+  quantity: number;
 };
 
 export type Order = {
@@ -20,6 +32,16 @@ export type Shop = {
   _id: string;
   title: string;
   address: string;
-  drugs: string[];
   orders: string[];
 };
+export interface getAllDrugsProps {
+  keyword: string;
+  byABC: boolean;
+  byPrice: boolean;
+  byDate: boolean;
+}
+// export interface DataTypeSelect {
+//   key: string;
+//   value: string;
+//   label: string;
+// }

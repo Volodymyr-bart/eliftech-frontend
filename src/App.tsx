@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import "./App.css";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
-import Shops from "./components/Shops/Shops";
+import Shops from "./pages/Shops/Shops";
 import ShopDrugs from "./components/ShopDrugs/ShopDrugs";
+import Basket from "./pages/Basket/Basket";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         <Route path="shops" element={<Shops />}>
           <Route path=":id" element={<ShopDrugs />} />
         </Route>
-        <Route path="shoping-cart" element={<>Cart</>} />
+        <Route path="shoping-cart" element={<Basket />} />
       </Route>
     </Routes>
   );

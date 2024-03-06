@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import { Shop } from "../../interface";
 import { URL_SERVER } from "../../common/common";
-import Loading from "../Loading/Loading";
+import Loading from "../../components/Loading/Loading";
 
 const Shops = () => {
+  const { id } = useParams();
+
   const [shops, setShops] = useState<Shop[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -23,22 +25,38 @@ const Shops = () => {
   }, []);
 
   return (
-    <main style={{ display: "flex", gap: "50px" }}>
+    <main style={{ marginTop: "50px", display: "flex", gap: "50px" }}>
       {loading ? (
         <Loading />
       ) : (
-        <aside>
-          <h3>Shops</h3>
-          <ul>
+        <aside
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+            minWidth: "250px",
+            textAlign: "center",
+          }}
+        >
+          <h2>Shops</h2>
+          <ul
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              alignItems: "center",
+            }}
+          >
             {shops.map((shop) => (
               <li key={shop._id}>
-                <Link to={shop._id}>{shop.title}</Link>
+                <button className={id === shop._id ? "active-shop" : ""}>
+                  <Link to={shop._id}>{shop.title}</Link>
+                </button>
               </li>
             ))}
           </ul>
         </aside>
       )}
-
       <Outlet />
     </main>
   );

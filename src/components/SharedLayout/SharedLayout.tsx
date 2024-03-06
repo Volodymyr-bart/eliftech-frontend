@@ -1,18 +1,10 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Header from "../Header/Header";
 
 const SharedLayout = () => {
   return (
     <>
-      <header
-        style={{
-          display: "flex",
-          margin: "0 auto",
-          gap: "20px",
-        }}
-      >
-        <NavLink to={"/shops"}>Shops</NavLink>
-        <NavLink to={"/shoping-cart"}>Shoping Cart</NavLink>
-      </header>
+      <Header />
       <Outlet />
     </>
   );
