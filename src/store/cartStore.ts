@@ -5,21 +5,29 @@ import { Drug, DrugCart } from "../interface";
 type useCart = {
   loading: boolean;
   drugs: DrugCart[];
+  favorites: Drug[];
   addDrugToCart: (drug: Drug) => void;
   deleteDrugFromCart: (id: string) => void;
   incrementQuantity: (id: string) => void;
   decrementQuantity: (id: string) => void;
   setField: (fields: Partial<useCart>) => void;
   clearCart: () => void;
+  toggleFavoriteDrug: (drug: Drug) => void;
 };
 
 export const useCart = createWithEqualityFn<useCart>()((set) => {
   const storedDrugs = localStorage.getItem("cartDrugs");
   const initialDrugs = storedDrugs ? JSON.parse(storedDrugs) : [];
 
+  const favoritesStoredDrugs = localStorage.getItem("favoriteDrugs");
+  const initialFavoritesDrugs = favoritesStoredDrugs
+    ? JSON.parse(favoritesStoredDrugs)
+    : [];
+
   return {
     drugs: initialDrugs,
     loading: false,
+    favorites: initialFavoritesDrugs,
     addDrugToCart: (drug) =>
       set((state) => {
         const existingDrug = state.drugs.find((d) => d._id === drug._id);
@@ -70,5 +78,29 @@ export const useCart = createWithEqualityFn<useCart>()((set) => {
       });
       localStorage.setItem("cartDrugs", JSON.stringify([]));
     },
+    toggleFavoriteDrug: (drug) =>
+      set((state) => {
+        const isFavorite = state.favorites.some(
+          (favDrug) => favDrug._id === drug._id
+        );
+
+        if (isFavorite) {
+          const updatedFavorites = state.favorites.filter(
+            (favDrug) => favDrug._id !== drug._id
+          );
+          localStorage.setItem(
+            "favoriteDrugs",
+            JSON.stringify(updatedFavorites)
+          );
+          return { favorites: updatedFavorites, loading: false };
+        } else {
+          const updatedFavorites = [...state.favorites, drug];
+          localStorage.setItem(
+            "favoriteDrugs",
+            JSON.stringify(updatedFavorites)
+          );
+          return { favorites: updatedFavorites, loading: false };
+        }
+      }),
   };
 }, shallow);

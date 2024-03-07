@@ -2,14 +2,21 @@ import Notiflix from "notiflix";
 import { Drug } from "../../interface";
 import { useCart } from "../../store/cartStore";
 import { Button } from "antd";
+import { HeartOutlined } from "@ant-design/icons";
 
 interface ProductCartProps {
   drug: Drug;
 }
 const ProductCart = ({ drug }: ProductCartProps) => {
-  const { addDrugToCart } = useCart((state) => ({
-    addDrugToCart: state.addDrugToCart,
-  }));
+  const { favorites, addDrugToCart, toggleFavoriteDrug } = useCart(
+    (state) => ({
+      drugs: state.drugs,
+      addDrugToCart: state.addDrugToCart,
+      toggleFavoriteDrug: state.toggleFavoriteDrug,
+      favorites: state.favorites,
+    })
+  );
+  const isFavorite = favorites.some((favDrug) => favDrug._id === drug._id);
   return (
     <li
       style={{
@@ -19,13 +26,10 @@ const ProductCart = ({ drug }: ProductCartProps) => {
         display: "flex",
         flexDirection: "column",
         gap: "10px",
+        position: "relative",
       }}
     >
-      <img
-        style={{ width: "200px", height: "200px" }}
-        src={drug.image}
-        alt={drug.title}
-      />
+      <img src={drug.image} alt={drug.title} />
       <h4 style={{ height: "32px", overflow: "hidden" }}>{drug.title}</h4>
       <div
         style={{
@@ -46,6 +50,10 @@ const ProductCart = ({ drug }: ProductCartProps) => {
           Додати
         </Button>
       </div>
+      <HeartOutlined
+        onClick={() => toggleFavoriteDrug(drug)}
+        className={`heart ${isFavorite ? "favorite" : ""}`}
+      />
     </li>
   );
 };
