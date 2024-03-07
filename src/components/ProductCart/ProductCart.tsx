@@ -8,14 +8,12 @@ interface ProductCartProps {
   drug: Drug;
 }
 const ProductCart = ({ drug }: ProductCartProps) => {
-  const { favorites, addDrugToCart, toggleFavoriteDrug } = useCart(
-    (state) => ({
-      drugs: state.drugs,
-      addDrugToCart: state.addDrugToCart,
-      toggleFavoriteDrug: state.toggleFavoriteDrug,
-      favorites: state.favorites,
-    })
-  );
+  const { favorites, addDrugToCart, toggleFavoriteDrug } = useCart((state) => ({
+    drugs: state.drugs,
+    addDrugToCart: state.addDrugToCart,
+    toggleFavoriteDrug: state.toggleFavoriteDrug,
+    favorites: state.favorites,
+  }));
   const isFavorite = favorites.some((favDrug) => favDrug._id === drug._id);
   return (
     <li
@@ -29,8 +27,19 @@ const ProductCart = ({ drug }: ProductCartProps) => {
         position: "relative",
       }}
     >
-      <img src={drug.image} alt={drug.title} />
-      <h4 style={{ height: "32px", overflow: "hidden" }}>{drug.title}</h4>
+      <img
+        src={drug.image}
+        alt={drug.title}
+        style={{
+          width: "100%",
+          height: "300px",
+          display: "block",
+          margin: "0 auto",
+          objectFit: "cover",
+          overflow: "hidden",
+        }}
+      />
+      <h4 style={{ height: "60px", overflow: "hidden" }}>{drug.title}</h4>
       <div
         style={{
           display: "flex",
