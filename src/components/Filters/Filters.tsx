@@ -23,22 +23,16 @@ const Filters = () => {
       </Form.Item>
       <Form.Item>
         <Select
-          style={{ width: "100px" }}
-          value={filters.byPrice}
-          onChange={(e) => handleSelectChange(e, "byPrice")}
-        >
-          <Option value="true">To Hight</Option>
-          <Option value="false">To low</Option>
-        </Select>
-      </Form.Item>
-      <Form.Item>
-        <Select
           style={{ width: "150px" }}
-          value={filters.byDate}
-          onChange={(e) => handleSelectChange(e, "byDate")}
+          value={filters.filter}
+          onChange={(e) => handleSelectChange(e, "filter")}
         >
-          <Option value="true">First new</Option>
-          <Option value="false">First old</Option>
+          <Option value="new">First new</Option>
+          <Option value="old">First old</Option>
+          <Option value="expensive">First expensive</Option>
+          <Option value="cheap">First cheap</Option>
+          <Option value="A-Z">A-Z</Option>
+          <Option value="Z-A">Z-A</Option>
         </Select>
       </Form.Item>
     </div>
