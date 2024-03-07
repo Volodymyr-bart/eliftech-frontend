@@ -26,7 +26,14 @@ const Shops = () => {
   }, []);
 
   return (
-    <main style={{ marginTop: "50px", display: "flex", gap: "50px" }}>
+    <main
+      style={{
+        marginTop: "50px",
+        display: "flex",
+        gap: "50px",
+        padding: "20px",
+      }}
+    >
       {loading ? (
         <Loading />
       ) : (

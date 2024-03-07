@@ -1,5 +1,7 @@
+import Notiflix from "notiflix";
 import { Drug } from "../../interface";
 import { useCart } from "../../store/cartStore";
+import { Button } from "antd";
 
 interface ProductCartProps {
   drug: Drug;
@@ -33,7 +35,16 @@ const ProductCart = ({ drug }: ProductCartProps) => {
         }}
       >
         <span>{drug.price} грн</span>
-        <button onClick={() => addDrugToCart(drug)}>Додати</button>
+        <Button
+          type="primary"
+          htmlType="button"
+          onClick={() => {
+            addDrugToCart(drug);
+            Notiflix.Notify.success(`Product ${drug.title} added`);
+          }}
+        >
+          Додати
+        </Button>
       </div>
     </li>
   );

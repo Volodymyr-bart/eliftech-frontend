@@ -1,5 +1,8 @@
+import Notiflix from "notiflix";
 import { DrugCart } from "../../interface";
 import { useCart } from "../../store/cartStore";
+import { Button } from "antd";
+import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 
 const ProductBasketCart = ({ drug }: { drug: DrugCart }) => {
   const { deleteDrugFromCart, incrementQuantity, decrementQuantity } = useCart(
@@ -12,30 +15,54 @@ const ProductBasketCart = ({ drug }: { drug: DrugCart }) => {
   );
 
   return (
-    <li style={{ display: "flex" }}>
+    <li style={{ display: "flex", gap: "20px" }}>
       <img
         style={{ width: "100px", height: "100px" }}
         src={drug.image}
         alt={drug.title}
       />
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-        <h4 style={{ height: "32px", overflow: "hidden" }}>{drug.title}</h4>
+        <h4 style={{ height: "48px", overflow: "hidden" }}>{drug.title}</h4>
         <div
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            gap: "50px",
             alignItems: "center",
           }}
         >
           <span>{drug.price} грн</span>
-          <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-            <button onClick={() => incrementQuantity(drug._id)}>+</button>
+          <div
+            style={{
+              display: "flex",
+              gap: "5px",
+              alignItems: "center",
+            }}
+          >
+            <Button onClick={() => incrementQuantity(drug._id)}>
+              <PlusOutlined />
+            </Button>
             <span>{drug.quantity}</span>
-            <button onClick={() => decrementQuantity(drug._id)}>-</button>
+            <Button
+              onClick={() => decrementQuantity(drug._id)}
+              disabled={drug.quantity === 1}
+            >
+              <MinusOutlined />
+            </Button>
           </div>
-          <button onClick={() => deleteDrugFromCart(drug._id)}>Delete</button>
+          <div>{drug.quantity * drug.price} грн</div>
         </div>
       </div>
+      <Button
+        style={{ marginLeft: "auto" }}
+        type="primary"
+        htmlType="button"
+        onClick={() => {
+          Notiflix.Notify.warning(`Product ${drug.title} deleted`);
+          deleteDrugFromCart(drug._id);
+        }}
+      >
+        <DeleteOutlined />
+      </Button>
     </li>
   );
 };

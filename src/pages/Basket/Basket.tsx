@@ -1,3 +1,4 @@
+import Notiflix from "notiflix";
 import BasketProducts from "../../components/BasketProducts/BasketProducts";
 import FormOrder from "../../components/FormOrder/FormOrder";
 import { DrugCart } from "../../interface";
@@ -6,7 +7,6 @@ import { useCart } from "../../store/cartStore";
 const Basket = () => {
   const { drugs, sendOrder } = useCart((state) => ({
     drugs: state.drugs,
-
     sendOrder: state.sendOrder,
   }));
 
@@ -16,7 +16,11 @@ const Basket = () => {
 
   return (
     <main
-      style={{ marginTop: "50px", display: "flex", flexDirection: "column" }}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        padding: "50px 30px",
+      }}
     >
       <div style={{ display: "flex", gap: "50px" }}>
         <FormOrder />
@@ -33,7 +37,14 @@ const Basket = () => {
           }}
         >
           <span>Total Price: {calculateTotalPrice(drugs)}грн</span>
-          <button onClick={sendOrder}>Submit</button>
+          <button
+            onClick={() => {
+              sendOrder();
+              Notiflix.Notify.success("Order Send");
+            }}
+          >
+            Submit
+          </button>
         </div>
       ) : (
         <></>

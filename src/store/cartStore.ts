@@ -89,6 +89,7 @@ export const useCart = createWithEqualityFn<useCart>()((set) => {
           address: "",
           drugs: [],
         });
+        localStorage.setItem("cartDrugs", JSON.stringify([]));
       } catch (error) {
         console.log(error);
       }

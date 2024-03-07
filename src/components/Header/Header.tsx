@@ -1,20 +1,15 @@
 import { NavLink } from "react-router-dom";
+import { Layout } from "antd";
 
-const Header = () => {
+const { Header } = Layout;
+const HeaderApp = () => {
   return (
-    <header
-      style={{
-        display: "flex",
-        margin: "0 auto",
-        gap: "20px",
-        padding: "10px 20px",
-        backgroundColor: "aqua",
-      }}
-    >
+    <Header>
       <NavLink to={"/shops"}>Shops</NavLink>
       <NavLink to={"/shoping-cart"}>Shoping Cart</NavLink>
-    </header>
+      <NavLink to={"/history"}>History</NavLink>
+    </Header>
   );
 };
 
-export default Header;
+export default HeaderApp;
