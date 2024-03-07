@@ -3,7 +3,7 @@ import SharedLayout from "./components/SharedLayout/SharedLayout";
 import Shops from "./pages/Shops/Shops";
 import ShopDrugs from "./components/ShopDrugs/ShopDrugs";
 import { ConfigProvider } from "antd";
-import History from "./pages/Hsitory/History";
+import History from "./pages/History/History";
 import BasketNew from "./pages/Basket/BasketNew";
 
 function App() {

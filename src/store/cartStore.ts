@@ -1,13 +1,8 @@
 import { shallow } from "zustand/shallow";
 import { createWithEqualityFn } from "zustand/traditional";
 import { Drug, DrugCart } from "../interface";
-import { sendOrderToShop } from "../service";
 
 type useCart = {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
   loading: boolean;
   drugs: DrugCart[];
   addDrugToCart: (drug: Drug) => void;
@@ -15,7 +10,7 @@ type useCart = {
   incrementQuantity: (id: string) => void;
   decrementQuantity: (id: string) => void;
   setField: (fields: Partial<useCart>) => void;
-  sendOrder: () => Promise<void>;
+  clearCart: () => void;
 };
 
 export const useCart = createWithEqualityFn<useCart>()((set) => {
@@ -23,10 +18,6 @@ export const useCart = createWithEqualityFn<useCart>()((set) => {
   const initialDrugs = storedDrugs ? JSON.parse(storedDrugs) : [];
 
   return {
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
     drugs: initialDrugs,
     loading: false,
     addDrugToCart: (drug) =>
@@ -73,26 +64,11 @@ export const useCart = createWithEqualityFn<useCart>()((set) => {
     setField: (obj) => {
       set((state) => ({ ...state, ...obj }));
     },
-    sendOrder: async () => {
-      const currentState = useCart.getState();
-      try {
-        await sendOrderToShop({
-          name: currentState.name,
-          email: currentState.email,
-          phone: currentState.address,
-          drugs: currentState.drugs,
-        });
-        set({
-          name: "",
-          email: "",
-          phone: "",
-          address: "",
-          drugs: [],
-        });
-        localStorage.setItem("cartDrugs", JSON.stringify([]));
-      } catch (error) {
-        console.log(error);
-      }
+    clearCart: () => {
+      set({
+        drugs: [],
+      });
+      localStorage.setItem("cartDrugs", JSON.stringify([]));
     },
   };
 }, shallow);

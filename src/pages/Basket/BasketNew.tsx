@@ -4,19 +4,34 @@ import { DrugCart } from "../../interface";
 import { useCart } from "../../store/cartStore";
 import { Button, Form, Input, Typography } from "antd";
 import Empty from "./../../assets/shopping-basket.png";
+import { URL_SERVER } from "../../common/common";
+import axios from "axios";
 
 const initialValues = { name: "", email: "", phone: "", address: "" };
 const BasketNew = () => {
   const [form] = Form.useForm();
-  const { drugs } = useCart((state) => ({
+  const { drugs, clearCart } = useCart((state) => ({
     drugs: state.drugs,
+    clearCart: state.clearCart,
   }));
 
   const calculateTotalPrice = (drugs: DrugCart[]) => {
     return drugs.reduce((acc, drug) => acc + drug.price * drug.quantity, 0);
   };
-  const onFinish = () => {
-    Notiflix.Notify.success("Order Send");
+  const onFinish = async (data: typeof initialValues) => {
+    const dataOrder = {
+      ...data,
+      drugs,
+    };
+    console.log(dataOrder);
+    try {
+      await axios.post(`${URL_SERVER}/orders`, dataOrder);
+      Notiflix.Notify.success("Order Send");
+      clearCart();
+    } catch (error) {
+      Notiflix.Notify.warning("Error");
+      console.log(error);
+    }
   };
   const isBasketEmpty = (drugs: DrugCart[]) => {
     return !(drugs.length > 0);

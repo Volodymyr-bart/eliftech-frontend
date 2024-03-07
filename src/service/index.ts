@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
 import { URL_SERVER } from "../common/common";
 import { getAllDrugsProps } from "../interface";
@@ -51,7 +52,6 @@ export const sendOrderToShop = async (data: any) => {
         "Content-Type": "application/json",
       },
     });
-    console.log(res);
 
     return res;
   } catch (error) {
