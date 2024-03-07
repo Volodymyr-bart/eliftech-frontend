@@ -8,9 +8,6 @@ type useDrugs = {
   drugs: Drug[];
   filters: {
     keyword: string;
-    // byABC: string;
-    // byPrice: string;
-    // byDate: string;
     filter: string;
   };
   getAlldrugs: (id: string) => Promise<void>;

@@ -31,7 +31,7 @@ export type Order = {
   shop: Shop;
   phone: string;
   email: string;
-  drugs: { drug: Drug; quantity: number }[];
+  drugs: DrugCart[];
   createdAt: Date;
 };
 

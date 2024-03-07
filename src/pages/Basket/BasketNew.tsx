@@ -23,7 +23,6 @@ const BasketNew = () => {
       ...data,
       drugs,
     };
-    console.log(dataOrder);
     try {
       await axios.post(`${URL_SERVER}/orders`, dataOrder);
       Notiflix.Notify.success("Order Send");
