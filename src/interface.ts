@@ -1,3 +1,10 @@
+export interface FormDataProps {
+  name: string;
+  email: string;
+  phone: string;
+  address: string;
+}
+
 export type Drug = {
   _id: string;
   title: string;
@@ -24,7 +31,7 @@ export type Order = {
   shop: Shop;
   phone: string;
   email: string;
-  products: { drug: Drug; quantity: number }[];
+  drugs: { drug: Drug; quantity: number }[];
   createdAt: Date;
 };
 

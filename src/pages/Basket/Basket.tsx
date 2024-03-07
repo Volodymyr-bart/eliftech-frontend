@@ -4,17 +4,16 @@ import { DrugCart } from "../../interface";
 import { useCart } from "../../store/cartStore";
 
 const Basket = () => {
-  const { drugs } = useCart((state) => ({
+  const { drugs, sendOrder } = useCart((state) => ({
     drugs: state.drugs,
+
+    sendOrder: state.sendOrder,
   }));
 
   const calculateTotalPrice = (drugs: DrugCart[]) => {
     return drugs.reduce((acc, drug) => acc + drug.price * drug.quantity, 0);
   };
 
-  const sendOrder = () => {
-    console.log("Click");
-  };
   return (
     <main
       style={{ marginTop: "50px", display: "flex", flexDirection: "column" }}

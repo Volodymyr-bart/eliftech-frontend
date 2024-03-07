@@ -4,6 +4,7 @@ import { Link, Outlet, useParams } from "react-router-dom";
 import { Shop } from "../../interface";
 import { URL_SERVER } from "../../common/common";
 import Loading from "../../components/Loading/Loading";
+import { Typography } from "antd";
 
 const Shops = () => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const Shops = () => {
             textAlign: "center",
           }}
         >
-          <h2>Shops</h2>
+          <Typography.Title level={2}>Shops</Typography.Title>
           <ul
             style={{
               display: "flex",

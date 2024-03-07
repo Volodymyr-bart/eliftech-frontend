@@ -2,7 +2,6 @@ import axios from "axios";
 import { URL_SERVER } from "../common/common";
 import { getAllDrugsProps } from "../interface";
 
-axios.defaults.url = URL_SERVER;
 export const getAllDrugs = async ({
   keyword,
   byABC,
@@ -14,8 +13,23 @@ export const getAllDrugs = async ({
       byABC: byABC.toString(),
       byPrice: byPrice.toString(),
     });
-    const { data } = await axios.get(`/drugs?${queryParams}`);
+    const { data } = await axios.get(`${URL_SERVER}/drugs?${queryParams}`);
     return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const sendOrderToShop = async (data: any) => {
+  try {
+    const res = await axios.post(`${URL_SERVER}/orders`, data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(res);
+
+    return res;
   } catch (error) {
     console.log(error);
   }
