@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Form, Input } from "antd";
 import { useCart } from "../../store/cartStore";
 
@@ -11,7 +12,7 @@ const FormOrder = () => {
     setField: state.setField,
   }));
 
-  const onChange = (data) => {
+  const onChange = (data: any) => {
     setField(data);
   };
 
