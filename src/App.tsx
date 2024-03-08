@@ -12,16 +12,16 @@ function App() {
   return (
     <ConfigProvider theme={{}}>
       <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Welcome />} />
-          <Route path="shops" element={<Shops />}>
+        <SharedLayout>
+          <Route path="/" element={<Welcome />} />
+          <Route path="/shops" element={<Shops />}>
             <Route index element={<WelcomeToShops />} />
             <Route path=":id" element={<ShopDrugs />} />
           </Route>
-          <Route path="shoping-cart" element={<BasketNew />} />
-          <Route path="history" element={<History />} />
+          <Route path="/shoping-cart" element={<BasketNew />} />
+          <Route path="/history" element={<History />} />
           <Route path="*" element={<Navigate to="/" replace />} />
-        </Route>
+        </SharedLayout>
       </Routes>
     </ConfigProvider>
   );
