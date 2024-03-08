@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
 import Shops from "./pages/Shops/Shops";
 import ShopDrugs from "./components/ShopDrugs/ShopDrugs";
@@ -20,6 +20,7 @@ function App() {
           </Route>
           <Route path="shoping-cart" element={<BasketNew />} />
           <Route path="history" element={<History />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
     </ConfigProvider>
