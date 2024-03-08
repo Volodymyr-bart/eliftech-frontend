@@ -1,4 +1,10 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
 import Shops from "./pages/Shops/Shops";
 import ShopDrugs from "./components/ShopDrugs/ShopDrugs";
@@ -7,8 +13,19 @@ import History from "./pages/History/History";
 import BasketNew from "./pages/Basket/BasketNew";
 import Welcome from "./components/Welcome/Welcome";
 import WelcomeToShops from "./components/WelcomeToShops/WelcomeToShops";
+import { useEffect } from "react";
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const currentPath = location.pathname;
+
+  // Use currentPath for further logic or display
+  console.log("Current URL pathname:", currentPath);
+  useEffect(() => {
+    navigate(`${currentPath}`);
+  }, [currentPath, navigate]);
+
   return (
     <ConfigProvider theme={{}}>
       <Routes>
